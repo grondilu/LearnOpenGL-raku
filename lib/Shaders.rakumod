@@ -11,8 +11,9 @@ our sub Load(
   my uint32 $programID = GL::createProgram();
 
   # Create the shaders
-  my uint32 $vertexShaderID   = GL::createShader(GL::VERTEX_SHADER);
-  my uint32 $fragmentShaderID = GL::createShader(GL::FRAGMENT_SHADER);
+  my uint32 ($vertexShaderID, $fragmentShaderID) =
+    map &GL::createShader, GL::VERTEX_SHADER, GL::FRAGMENT_SHADER;
+  LEAVE map &GL::deleteShader, $vertexShaderID, $fragmentShaderID;
 
   my int32 $result;
   my int32 $infoLogLength;
@@ -60,9 +61,6 @@ our sub Load(
     GL::getProgramInfoLog($programID, $infoLogLength, Nil, $infoLog);
     note blob8.new($infoLog.list[0..^($infoLogLength - 1)]).decode('ascii');
   }
-
-  GL::deleteShader($vertexShaderID);
-  GL::deleteShader($fragmentShaderID);
 
   return $programID;
 }
