@@ -13,7 +13,9 @@ our constant COMPRESSED_RGBA_S3TC_DXT1_EXT = 0x83F1;
 our constant COMPRESSED_RGBA_S3TC_DXT3_EXT = 0x83F2;
 our constant COMPRESSED_RGBA_S3TC_DXT5_EXT = 0x83F3;
 
-our constant    ARRAY_BUFFER = 0x8892;
+our constant         ARRAY_BUFFER = 0x8892;
+our constant ELEMENT_ARRAY_BUFFER = 0x8893;
+
 our constant     STATIC_DRAW = 0x88E4;
 our constant   VERTEX_SHADER = 0x8B31;
 our constant FRAGMENT_SHADER = 0x8B30;
@@ -25,6 +27,7 @@ our constant COMPILE_STATUS = 0x8B81;
 our constant    LINK_STATUS = 0x8B82;
 
 our constant UNSIGNED_BYTE = 0x1401;
+our constant UNSIGNED_INT  = 0x1405;
 our constant FLOAT         = 0x1406;
 
 our constant RGB   = 0x1907;
@@ -132,6 +135,7 @@ our sub disableVertexAttribArray(uint32) is native($gllib) is symbol('glDisableV
 
 
 our sub drawArrays(uint32, uint32, uint32)       is native($gllib) is symbol('glDrawArrays') {*}
+our sub drawElements(uint32, uint32, uint32, Pointer) is native($gllib) is symbol('glDrawElements') {*}
 our sub viewport(int32, int32, uint32, uint32) is native($gllib) is symbol('glViewport')   {*}
 
 our sub getError(--> uint32) is native($gllib) is symbol('glGetError') {*}
