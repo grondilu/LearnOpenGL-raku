@@ -159,6 +159,7 @@ our sub texParameteri(uint32, uint16, uint16) is native($gllib) is symbol('glTex
 our sub activeTexture(uint16) is native($gllib) is symbol('glActiveTexture') {*}
 
 our sub uniform1i(int32, int32) is native($gllib) is symbol('glUniform1i') {*}
+our sub uniform4f(int32, num32, num32, num32, num32) is native($gllib) is symbol('glUniform4f') {*}
 
 our sub pixelStorei(uint16, int32) is native($gllib) is symbol('glPixelStorei') {*}
 
