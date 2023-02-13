@@ -37,6 +37,10 @@ our constant NEAREST = 0x2600;
 
 our constant TEXTURE_MAG_FILTER = 0x2800;
 our constant TEXTURE_MIN_FILTER = 0x2801;
+our constant TEXTURE_WRAP_S     = 0x2802;
+our constant TEXTURE_WRAP_T     = 0x2803;
+
+our constant REPEAT     = 0x2901;
 
 our constant TEXTURE0	= 0x84C0;
 our constant TEXTURE1	= 0x84C1;
@@ -153,7 +157,8 @@ our sub texImage2D(uint32 $target, int32 $level,
   Pointer[void]) is native($gllib) is symbol('glTexImage2D') {*}
 
 
-our sub texParameteri(uint32, uint16, uint16) is native($gllib) is symbol('glTexParameteri') {*}
+our sub texParameteri(uint32, uint16, uint16)         is native($gllib) is symbol('glTexParameteri') {*}
+our sub texParameterfv(uint32, uint16, CArray[num32]) is native($gllib) is symbol('glTexParameterfv') {*}
 
 
 our sub activeTexture(uint16) is native($gllib) is symbol('glActiveTexture') {*}
@@ -168,3 +173,5 @@ our sub compressedTexImage2D(uint32 $target,
   int32 $border, uint32 $imageSize, Pointer[void] $data) is native($gllib) is symbol('glCompressedTexImage2D') {*}
 
 our sub enable(uint32) is native($gllib) is symbol('glEnable') {*}
+
+our sub generateMipmap(uint32) is native($gllib) is symbol('glGenerateMipmap') {*}

@@ -24,9 +24,25 @@ our enum FLAG (
   TEXTURE_RECTANGLE => 512
 );
 
-enum HDR (
+our enum HDR (
   RGBE => 0,
   RGBdivA => 1,
   RGBdivA2 => 2
 );
 
+our enum SAVE-TYPE <TGA BMP DDS>;
+
+our constant DDS-CUBEMAP-FACE-ORDER = "EWUDNS";
+
+our sub load-ogl-texture(
+  Str $filename,
+  int32 $force-channels,
+  uint32 $reuse-texture-id,
+  uint32 $flags
+  --> uint32
+) is native($soil) is symbol('SOIL_load_OGL_texture') {*}
+
+
+our sub load-image(Str, int32 is rw, int32 is rw, int32 is rw, int32 --> Pointer) is native($soil) is symbol('SOIL_load_image') {*}
+
+our sub free-image-data(Pointer) is native($soil) is symbol('SOIL_free_image_data') {*}
