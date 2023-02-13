@@ -34,6 +34,7 @@ our constant RGB   = 0x1907;
 our constant RGBA  = 0x1908;
 
 our constant NEAREST = 0x2600;
+our constant LINEAR  = 0x2601;
 
 our constant TEXTURE_MAG_FILTER = 0x2800;
 our constant TEXTURE_MIN_FILTER = 0x2801;
@@ -150,6 +151,7 @@ our sub uniformMatrix4fv(uint32, uint32, Bool, CArray[num32]) is native($gllib) 
 
 
 our sub genTextures(uint32, uint32 is rw) is native($gllib) is symbol('glGenTextures') {*}
+our sub activeTexture(uint32) is native($gllib) is symbol('glActiveTexture') {*}
 our sub bindTexture(uint32, uint32)       is native($gllib) is symbol('glBindTexture') {*}
 our sub texImage2D(uint32 $target, int32 $level,
   int32 $internalFormat, uint32 $width, uint32 $height, 
@@ -161,7 +163,6 @@ our sub texParameteri(uint32, uint16, uint16)         is native($gllib) is symbo
 our sub texParameterfv(uint32, uint16, CArray[num32]) is native($gllib) is symbol('glTexParameterfv') {*}
 
 
-our sub activeTexture(uint16) is native($gllib) is symbol('glActiveTexture') {*}
 
 our sub uniform1i(int32, int32) is native($gllib) is symbol('glUniform1i') {*}
 our sub uniform4f(int32, num32, num32, num32, num32) is native($gllib) is symbol('glUniform4f') {*}
