@@ -29,8 +29,15 @@ our sub vec4(Real $x, Real $y, Real $z, Real $w --> Vec4) { array.new: :shape(4,
 our sub mat2(*@x where @x == 4  --> Mat2) { array.new: :shape(2,2), @x.rotor(2) }
 our sub mat3(*@x where @x == 9  --> Mat3) { array.new: :shape(3,3), @x.rotor(3) }
 our proto mat4(| --> Mat4) {*}
-multi mat4(*@x where @x == 16 --> Mat4) { array.new: :shape(4,4), @x.rotor(4) }
-multi mat4(1 --> Mat4) { array.new: :shape(4,4), (^4).map({(1,0,0,0).rotate(-$_)}) }
+multi mat4(*@x where @x == 16) { array.new: :shape(4,4), @x.rotor(4) }
+multi mat4(1) { array.new: :shape(4,4), (^4).map({(1,0,0,0).rotate(-$_)}) }
+multi mat4(Vec4 $v) {
+  samewith
+    $v[0], 0, 0, 0,
+    0, $v[1], 0, 0,
+    0, 0, $v[2], 0,
+    0, 0, 0, $v[3],
+}
 
 multi infix:<+>(Vector $u, Vector $v where $u.shape ~~ $v.shape --> Vector) is export { array.new: shape => $u.shape, (@$u Z+ @$v) }
 multi infix:<*>(Real $r, Vector $v --> Vector) is export { array.new: shape => $v.shape, ($r X* $v.list) }
@@ -98,3 +105,26 @@ our sub lookAt(Vec3 :eye($e), Vec3 :$center, Vec3 :$up) returns Mat4 {
     -$s·$e,  -$u·$e,  -$f·$e,   1,
 }
 
+our sub translate(Mat4 $m, Vec3 $v) returns Mat4 {
+  mat4
+    $m[0;0]      , $m[0;1]      , $m[0;2]      , $m[0;3],
+    $m[1;0]      , $m[1;1]      , $m[1;2]      , $m[1;3],
+    $m[2;0]      , $m[2;1]      , $m[2;2]      , $m[2;3],
+    $m[3;0]+$v[0], $m[3;1]+$v[1], $m[3;2]+$v[2], $m[3;3],
+  ;
+}
+
+our sub rotate(Mat4 $m, Real $angle, Vec3 $v) returns Mat4 {
+  # L<https://docs.gl/gl3/glRotate>
+  my ($c, $s) = (&cos, &sin)».($angle);
+  my ($x, $y, $z) = $v.xyz;
+  $m*mat4
+    $x²*(1-$c)+$c, $y*$x*(1-$c)+$z*$s, $x*$z*(1-$c)-$y*$s, 0,
+    $x*$y*(1-$c)-$z*$s, $y²*(1-$c)+$c, $y*$z*(1-$c)+$x*$s, 0,
+    $x*$z*(1-$c)+$y*$s, $y*$z*(1-$c)-$x*$s, $z²*(1-$c)+$c, 0,
+    0, 0, 0, 1;
+}
+
+our sub scale(Mat4 $m, Vec3 $v) returns Mat4 {
+  $m * mat4 vec4 |$v.xyz, 1;
+}
