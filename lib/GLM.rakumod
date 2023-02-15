@@ -117,7 +117,7 @@ our sub translate(Mat4 $m, Vec3 $v) returns Mat4 {
 our sub rotate(Mat4 $m, Real $angle, Vec3 $v) returns Mat4 {
   # L<https://docs.gl/gl3/glRotate>
   my ($c, $s) = (&cos, &sin)».($angle);
-  my ($x, $y, $z) = $v.xyz;
+  my ($x, $y, $z) = normalized($v).xyz;
   $m*mat4
     $x²*(1-$c)+$c, $y*$x*(1-$c)+$z*$s, $x*$z*(1-$c)-$y*$s, 0,
     $x*$y*(1-$c)-$z*$s, $y²*(1-$c)+$c, $y*$z*(1-$c)+$x*$s, 0,
