@@ -13,3 +13,10 @@ The tasks below may be marked as completed even though the exercises are not.
 - [ ] advanced lighting
 - [ ] pbr
 - [ ] in practice
+
+
+# Dependencies
+
+Lots of: OpenGL, GLFW, SOIL ...   You need to install these libraries on your system,
+likely along with their development versions (`-devel`).  I will eventually write
+more details for at least Fedora and Debian.
