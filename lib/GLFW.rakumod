@@ -53,6 +53,7 @@ our sub windowHint(int32, int32) is native($lib) is symbol('glfwWindowHint') {*}
 
 our sub getCursorPos(uint32, num64 is rw, num64 is rw) is native($lib) is symbol('glfwGetCursorPos') {*}
 our sub setCursorPos(uint32, num64      , num64)       is native($lib) is symbol('glfwSetCursorPos') {*}
+our sub setCursorPosCallback(uint32, &callbak (int32, num64, num64)) is native($lib) is symbol('glfwSetCursorPosCallback') {*}
 
 
 our sub getTime(--> num64)  is native($lib) is symbol('glfwGetTime') {*}
