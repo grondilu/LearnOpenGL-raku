@@ -27,6 +27,10 @@ our enum KEY_CODE (
   KEY_LEFT   => 263,
   KEY_DOWN   => 264,
   KEY_UP     => 265,
+  KEY_A      => 65,
+  KEY_D      => 68,
+  KEY_S      => 83,
+  KEY_W      => 87,
 );
 
 our sub init(--> int32)                                             is native($lib) is symbol('glfwInit')                  {*}
