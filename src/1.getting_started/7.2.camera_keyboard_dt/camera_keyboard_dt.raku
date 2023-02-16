@@ -11,20 +11,20 @@ package SCR {
 }
 
 package camera {
-  our $speed = .05;
+  our $speed = 4;
   our $position = GLM::vec3 0, 0, 3;
   our $front    = GLM::vec3 0, 0, -1;
   our $up       = GLM::vec3 0, 1, 0;
 }
 
 sub process-input($window) {
-  my $s = $camera::speed;
+  my $speed = $camera::speed;
   sub key($k) { GLFW::getKey($window, $k) == GLFW::PRESS }
   GLFW::setWindowShouldClose($window, True) if key(GLFW::KEY_ESCAPE);
-  $camera::position += $s*$camera::front if key(GLFW::KEY_W);
-  $camera::position -= $s*$camera::front if key(GLFW::KEY_S);
-  $camera::position -= $s*GLM::normalized($camera::front × $camera::up) if key(GLFW::KEY_A);
-  $camera::position += $s*GLM::normalized($camera::front × $camera::up) if key(GLFW::KEY_D);
+  $camera::position += $speed*$*delta-time*$camera::front if key(GLFW::KEY_W);
+  $camera::position -= $speed*$*delta-time*$camera::front if key(GLFW::KEY_S);
+  $camera::position -= $speed*$*delta-time*GLM::normalized($camera::front × $camera::up) if key(GLFW::KEY_A);
+  $camera::position += $speed*$*delta-time*GLM::normalized($camera::front × $camera::up) if key(GLFW::KEY_D);
 }
 
 constant $vertex-shader-source   = "7.2.camera.vs".IO.slurp;
@@ -170,6 +170,8 @@ sub MAIN {
     GL::uniform1i GL::getUniformLocation($program, "texture2"), 1;
 
     until GLFW::windowShouldClose($window) {
+      my $*delta-time = now - state $now = now;
+      $now = now;
       GL::clearColor .2e0, .3e0, .3e0, 1e0;
       GL::clear GL::COLOR_BUFFER_BIT +| GL::DEPTH_BUFFER_BIT;
 
