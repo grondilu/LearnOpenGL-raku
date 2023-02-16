@@ -183,6 +183,10 @@ sub MAIN {
 	($x-offset, $y-offset) »*=» $sensitivity;
 	$pitch min= 89°;
 	$pitch max=-89°;
+	$camera::front = GLM::vec3
+	  cos($yaw)*cos($pitch),
+	  sin($pitch),
+	  sin($yaw)*cos($pitch);
       }
     ;
 
@@ -199,11 +203,6 @@ sub MAIN {
       GL::bindTexture GL::TEXTURE_2D, $texture2;
 
       GL::useProgram $program;
-
-      $camera::front = GLM::vec3
-	cos($yaw)*cos($pitch),
-	sin($pitch),
-	sin($yaw)*cos($pitch);
 
       my $view = GLM::lookAt
 	eye => $camera::position,
