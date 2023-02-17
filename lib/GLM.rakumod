@@ -4,13 +4,13 @@ class array is Array[Real] {...}
 subset Matrix of array where { .shape.elems == 2 }
 subset Vector of array where { .shape.elems == 1 }
 
-subset Mat2 of Matrix where { .shape ~~ (2, 2) }
-subset Mat3 of Matrix where { .shape ~~ (3, 3) }
-subset Mat4 of Matrix where { .shape ~~ (4, 4) }
+our subset Mat2 of Matrix where { .shape ~~ (2, 2) }
+our subset Mat3 of Matrix where { .shape ~~ (3, 3) }
+our subset Mat4 of Matrix where { .shape ~~ (4, 4) }
 
-subset Vec2 of Vector where { .shape ~~ (2,) }
-subset Vec3 of Vector where { .shape ~~ (3,) }
-subset Vec4 of Vector where { .shape ~~ (4,) }
+our subset Vec2 of Vector where { .shape ~~ (2,) }
+our subset Vec3 of Vector where { .shape ~~ (3,) }
+our subset Vec4 of Vector where { .shape ~~ (4,) }
 
 class array {
   method x(           Vector:) { self[0] }
