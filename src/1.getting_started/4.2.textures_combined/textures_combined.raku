@@ -1,4 +1,4 @@
-use lib "$*HOME/.local/src/ogl-raku/lib/";
+use lib "../../../lib";
 use GL;
 use GLFW;
 use Shaders;
@@ -130,7 +130,7 @@ sub MAIN {
       GL::useProgram $program;
       GL::bindVertexArray $vao;
 
-      GL::drawElements GL::TRIANGLES, 6, GL::UNSIGNED_INT, 0;
+      GL::drawElements GL::TRIANGLES, 6, GL::UNSIGNED_INT, Pointer.new;
 
       process-input($window);
       GLFW::swapBuffers $window;
