@@ -21,7 +21,7 @@ our sub Load(
   note "Compiling vertex shader";
   my @vertexShaderSources := CArray[Str].new;
   @vertexShaderSources[0] = $vertex-shader-source;
-  GL::shaderSource($vertexShaderID, 1, @vertexShaderSources, Nil);
+  GL::shaderSource($vertexShaderID, 1, @vertexShaderSources, my int32 $);
   GL::compileShader($vertexShaderID);
 
   # Check Vertex Shader
@@ -36,7 +36,7 @@ our sub Load(
   note "Compiling fragment shader";
   my @fragmentShaderSources := CArray[Str].new;
   @fragmentShaderSources[0] = $fragment-shader-source;
-  GL::shaderSource($fragmentShaderID, 1, @fragmentShaderSources, Nil);
+  GL::shaderSource($fragmentShaderID, 1, @fragmentShaderSources, my int32 $);
   GL::compileShader($fragmentShaderID);
 
   # Check Fragment Shader
