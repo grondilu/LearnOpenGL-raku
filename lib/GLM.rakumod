@@ -81,6 +81,7 @@ multi infix:<*>(Matrix $A, Matrix $B where $A.shape[0] == $B.shape[1] --> Matrix
 }
 
 sub postfix:<°>(Real $angle --> Real) is export { $angle/180*π }
+sub postfix:<º>($) is export { fail "Did you mean postfix:<°> instead of postfix:<º>?" }
 sub postfix:<⁰>($) is export { fail "Did you mean postfix:<°> instead of postfix:<⁰>?" }
 
 our sub perspective(Real $fovy, Rat  $aspect, Range $range) returns Mat4 {
