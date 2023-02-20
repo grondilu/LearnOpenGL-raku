@@ -1,4 +1,4 @@
-use lib "$*HOME/.local/src/ogl-raku/lib/";
+use lib "../../../lib";
 use GL;
 use GLM;
 use GLFW;
