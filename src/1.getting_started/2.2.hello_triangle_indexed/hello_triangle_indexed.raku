@@ -81,7 +81,7 @@ sub MAIN {
       GL::bindVertexArray $vao;
 
       GL::bindBuffer GL::ELEMENT_ARRAY_BUFFER, $ebo;
-      GL::drawElements GL::TRIANGLES, 6, GL::UNSIGNED_INT, 0;
+      GL::drawElements GL::TRIANGLES, 6, GL::UNSIGNED_INT, Pointer.new;
 
       process-input($window);
       GLFW::swapBuffers $window;
