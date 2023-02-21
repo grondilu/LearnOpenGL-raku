@@ -5,6 +5,7 @@ has Real $.speed = 3;
 has Real $.sensitivity = .001;
 has Real $.yaw = 90°;
 has Real $.pitch = 0°;
+has Real $.zoom = 45°;
 
 has GLM::Vec3 $.position = GLM::vec3(0,0,0);
 has GLM::Vec3 $.up       = GLM::vec3(0,1,0);
