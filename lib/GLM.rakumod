@@ -96,7 +96,7 @@ our sub perspective(Real $fovy, Rat  $aspect, Range $range) returns Mat4 {
 }
 
 our sub lookAt(Vec3 :eye($e), Vec3 :$center, Vec3 :$up) returns Mat4 {
-  my $f = normalized($e - $center);
+  my $f = normalized($center - $e);
   my $s = normalized($up × $f);
   my $u = $f × $s;
   mat4

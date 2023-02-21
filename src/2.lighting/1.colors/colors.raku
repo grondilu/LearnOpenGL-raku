@@ -13,8 +13,7 @@ package SCR {
 
 my Camera $camera .= new:
 		     position => GLM::vec3(0, 0, 3),
-		     yaw => 90°
-;
+		     yaw => -90°;
 
 my GLM::Vec3 $light-pos = GLM::vec3(1.2, 1, 2);
 
@@ -134,7 +133,7 @@ sub MAIN {
 	state ($last-X, $last-Y) = SCR::WIDTH/2, SCR::HEIGHT/2;
 	my ($x-offset, $y-offset) = $xpos - $last-X, $last-Y - $ypos;
 	($last-X, $last-Y) = $xpos, $ypos;
-	$camera.pitch: -$y-offset*$camera.sensitivity;
+	$camera.pitch: $y-offset*$camera.sensitivity;
 	$camera.yaw:   $x-offset*$camera.sensitivity;
       }
     ;
@@ -144,7 +143,7 @@ sub MAIN {
       my $*delta-time = now - state $now = now;
       $now = now;
 
-      GL::clearColor .2e0, .3e0, .3e0, 1e0;
+      GL::clearColor 0e0, 0e0, 0e0, 0e0;
       GL::clear GL::COLOR_BUFFER_BIT +| GL::DEPTH_BUFFER_BIT;
 
       my $projection = GLM::perspective $camera.zoom, SCR::WIDTH / SCR::HEIGHT, 0.1..100;

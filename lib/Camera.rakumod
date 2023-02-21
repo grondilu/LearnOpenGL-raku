@@ -19,7 +19,7 @@ method front returns GLM::Vec3 {
     sin($!yaw)*cos($!pitch);
 }
 method back  returns GLM::Vec3 { -self.front }
-method left  returns GLM::Vec3 { GLM::normalized(self.front × self.up) }
+method left  returns GLM::Vec3 { -GLM::normalized(self.front × self.up) }
 method right returns GLM::Vec3 { -self.left }
 
 method pitch(Real $pitch) {
