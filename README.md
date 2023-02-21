@@ -24,10 +24,9 @@ more details for at least Fedora and Debian.
 
 ## Fedora toolbox 37
 
-You probably want the latest rakudo version, which is not available in the toolbox.  So first, instal that, either in the toolbox or your host system.
+You probably want the latest rakudo version, which is not available in the toolbox.  So first, instal that, either in the toolbox or your host system.  Then, in your toolbox:
 
-```console
-LearnOpenGL-raku $ toolbox enter fedora-toolbox-37
-⬢[user@toolbox LearnOpenGL-raku]$ sudo dnf install {mesa-libGL,glfw,SOIL}{,-devel}
+```sh
+sudo dnf install {mesa-libGL,glfw,SOIL}{,-devel}
 ```
 
