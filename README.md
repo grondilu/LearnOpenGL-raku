@@ -21,3 +21,13 @@ completed even though the exercises are not.
 Lots of: OpenGL, GLFW, SOIL ...   You need to install these libraries on your system,
 likely along with their development versions (`-devel`).  I will eventually write
 more details for at least Fedora and Debian.
+
+## Fedora toolbox 37
+
+You probably want the latest rakudo version, which is not available in the toolbox.  So first, instal that, either in the toolbox or your host system.
+
+```console
+LearnOpenGL-raku $ toolbox enter fedora-toolbox-37
+⬢[user@toolbox LearnOpenGL-raku]$ sudo dnf install {mesa-libGL,glfw,SOIL}{,-devel}
+```
+
