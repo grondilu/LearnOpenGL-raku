@@ -12,8 +12,8 @@ package SCR {
 }
 
 my Camera $camera .= new:
-		     position => GLM::vec3(0, 0, 3),
-		     yaw => -90°;
+                     position => GLM::vec3(0, 0, 3),
+                     yaw => -90°;
 
 my GLM::Vec3 $light-pos = GLM::vec3(1.2, 1, 2);
 
@@ -119,10 +119,10 @@ sub MAIN {
 
     GL::bindVertexArray $lighting-vao;
     GL::bindBuffer GL::ARRAY_BUFFER, $vbo;
-    
+
     GL::vertexAttribPointer 0, 3, GL::FLOAT, GL::FALSE, 3*4, Pointer.new;
     GL::enableVertexAttribArray 0;
-    
+
     GL::enable GL::DEPTH_TEST;
 
     GLFW::setInputMode $window, GLFW::CURSOR, GLFW::CURSOR_DISABLED;
@@ -130,16 +130,16 @@ sub MAIN {
     GLFW::setCursorPosCallback
       $window,
       sub ($w, $xpos, $ypos) {
-	state ($last-X, $last-Y) = SCR::WIDTH/2, SCR::HEIGHT/2;
-	my ($x-offset, $y-offset) = $xpos - $last-X, $last-Y - $ypos;
-	($last-X, $last-Y) = $xpos, $ypos;
-	$camera.pitch: $y-offset*$camera.sensitivity;
-	$camera.yaw:   $x-offset*$camera.sensitivity;
+          state ($last-X, $last-Y) = SCR::WIDTH/2, SCR::HEIGHT/2;
+          my ($x-offset, $y-offset) = $xpos - $last-X, $last-Y - $ypos;
+          ($last-X, $last-Y) = $xpos, $ypos;
+          $camera.pitch: $y-offset*$camera.sensitivity;
+          $camera.yaw:   $x-offset*$camera.sensitivity;
       }
     ;
 
     until GLFW::windowShouldClose($window) {
-	
+
       my $*delta-time = now - state $now = now;
       $now = now;
 
@@ -148,47 +148,46 @@ sub MAIN {
 
       my $projection = GLM::perspective $camera.zoom, SCR::WIDTH / SCR::HEIGHT, 0.1..100;
       my $view = $camera.matrix;
-      
-      {
-	  GL::useProgram $cube-program;
-	  GL::uniform3f(GL::getUniformLocation($cube-program, "objectColor"), 1e0, .5e0, .31e0);
-	  GL::uniform3f(GL::getUniformLocation($cube-program, "lightColor" ), 1e0,  1e0,   1e0);
-	  my $model = GLM::mat4 1;
 
-	  for :$projection, :$view, :$model {
-	      GL::uniformMatrix4fv(
-		  GL::getUniformLocation($cube-program, .key),
-		  1,
-		  GL::FALSE,
-		  CArray[num32].new: .value.flat».Num
-	      );
-	  }
-	  GL::bindVertexArray($cube-vao);
-	  GL::drawArrays(GL::TRIANGLES, 0, 36);
+      {
+          GL::useProgram $cube-program;
+          GL::uniform3f(GL::getUniformLocation($cube-program, "objectColor"), 1e0, .5e0, .31e0);
+          GL::uniform3f(GL::getUniformLocation($cube-program, "lightColor" ), 1e0,  1e0,   1e0);
+          my $model = GLM::mat4 1;
+
+          for :$projection, :$view, :$model {
+              GL::uniformMatrix4fv(
+                  GL::getUniformLocation($cube-program, .key),
+                  1,
+                  GL::FALSE,
+                  CArray[num32].new: .value.flat».Num
+              );
+          }
+          GL::bindVertexArray($cube-vao);
+          GL::drawArrays(GL::TRIANGLES, 0, 36);
       }
 
       {
-	  GL::useProgram $lighting-program;
-	  GL::uniform3f(GL::getUniformLocation($lighting-program, "objectColor"), 1e0, .5e0, .31e0);
-	  GL::uniform3f(GL::getUniformLocation($lighting-program, "lightColor" ), 1e0,  1e0,   1e0);
-	  my $model = GLM::mat4 1;
-	  $model = GLM::translate $model, $light-pos;
-	  $model = GLM::scale $model, GLM::vec3 .2, .2, .2;
-	  
-  	  for :$projection, :$view, :$model {
-	      GL::uniformMatrix4fv(
-		  GL::getUniformLocation($lighting-program, .key),
-		  1,
-		  GL::FALSE,
-		  CArray[num32].new: .value.flat».Num
-	      );
-	  }
+          GL::useProgram $lighting-program;
+          GL::uniform3f(GL::getUniformLocation($lighting-program, "objectColor"), 1e0, .5e0, .31e0);
+          GL::uniform3f(GL::getUniformLocation($lighting-program, "lightColor" ), 1e0,  1e0,   1e0);
+          my $model = GLM::mat4 1;
+          $model = GLM::translate $model, $light-pos;
+          $model = GLM::scale $model, GLM::vec3 .2, .2, .2;
 
-	  GL::bindVertexArray($lighting-vao);
-	  GL::drawArrays(GL::TRIANGLES, 0, 36);
+          for :$projection, :$view, :$model {
+              GL::uniformMatrix4fv(
+                  GL::getUniformLocation($lighting-program, .key),
+                  1,
+                  GL::FALSE,
+                  CArray[num32].new: .value.flat».Num
+              );
+          }
+
+          GL::bindVertexArray($lighting-vao);
+          GL::drawArrays(GL::TRIANGLES, 0, 36);
 
       }
-      
 
       process-input($window);
       GLFW::swapBuffers $window;
