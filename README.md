@@ -4,7 +4,7 @@ This fork contains Raku code (using NativeCall libraries in ./lib) attempting to
 
 # Status
 
-I'm lazy so I did the bare minimum, so the tasks below may be marked as
+I did the bare minimum, so the tasks below may be marked as
 completed even though the exercises are not.
 
 - [x] getting started
